@@ -1,9 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+
 body {
   margin: 0;
   padding: 0;
-  background: #ee0979;
-  background: linear-gradient(to right, #ff6a00, #ee0979);
-
+  background-image: linear-gradient(to right, #845EC2, #D65DB1, #FF6F91, #FF9671, #FFC75F, #F9F871);
+  font-family: 'Indie Flower', cursive;
 }
-
-
