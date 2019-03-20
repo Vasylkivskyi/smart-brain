@@ -1,15 +1,16 @@
 import React from "react";
 import "./FaceRecognition.css";
 
-const FaceRecognition = ({ imageUrl, box, facesCoordinates }) => {
+const FaceRecognition = ({ imageUrl, boxes }) => {
   let imgAlt = "";
   if (imageUrl.length > 0) {
     imgAlt = "your image";
   }
 
-  const boundingBoxes = facesCoordinates.map((box, id) => {
+  const boundingBoxes = boxes.map((box, id) => {
     return (
       <div
+        key={id}
         className="bounding-box"
         style={{
           top: box.topRow,
@@ -18,9 +19,8 @@ const FaceRecognition = ({ imageUrl, box, facesCoordinates }) => {
           right: box.rightCol
         }}
       />
-    )
-  })
-
+    );
+  });
 
   return (
     <div className="center ma">
@@ -32,15 +32,6 @@ const FaceRecognition = ({ imageUrl, box, facesCoordinates }) => {
           width="500px"
           height="auto"
         />
-        {/* <div
-          className="bounding-box"
-          style={{
-            top: box.topRow,
-            bottom: box.bottomRow,
-            left: box.leftCol,
-            right: box.rightCol
-          }}
-        /> */}
         {boundingBoxes}
       </div>
     </div>
