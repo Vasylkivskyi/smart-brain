@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Particles from "react-particles-js";
 import "./App.css";
 import Navigation from "./components/Navigation/Navigation";
+import SignIn from "./components/SignIn/SignIn";
+import Register from "./components/Register/Register";
 import Logo from "./components/Logo/Logo";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank/Rank";
@@ -19,7 +21,8 @@ class App extends Component {
     this.state = {
       input: "",
       imageUrl: "",
-      boxes: []
+      boxes: [],
+      route: "signIn"
     };
   }
 
@@ -55,21 +58,41 @@ class App extends Component {
       .catch(error => console.log(error));
   };
 
+  onRouteChange = route => {
+    this.setState({
+      route: route
+    });
+  };
+
   render() {
     return (
       <div className="App">
         <Particles className="particles" params={particlesconfig} />
-        <Navigation />
-        <Logo />
-        <Rank />
-        <ImageLinkForm
-          onInputChange={this.onInputChange}
-          onButtonSubmit={this.onSubmit}
-        />
-        <FaceRecognition
-          boxes={this.state.boxes}
-          imageUrl={this.state.imageUrl}
-        />
+        {this.state.route === "home" ? (
+          <div>
+            <Navigation onRouteChange={this.onRouteChange} />
+            <Logo />
+            <Rank />
+            <ImageLinkForm
+              onInputChange={this.onInputChange}
+              onButtonSubmit={this.onSubmit}
+            />
+            <FaceRecognition
+              boxes={this.state.boxes}
+              imageUrl={this.state.imageUrl}
+            />
+          </div>
+        ) : this.state.route === "register" ? (
+          <div>
+            <Navigation onRouteChange={this.onRouteChange} />
+            <Register onRouteChange={this.onRouteChange} />
+          </div>
+        ) : (
+          <div>
+            <Navigation onRouteChange={this.onRouteChange} />
+            <SignIn onRouteChange={this.onRouteChange} />
+          </div>
+        )}
       </div>
     );
   }
