@@ -1,15 +1,47 @@
-import React from 'react'
-const FaceRecognition = ({ imageUrl }) => {
+import React from "react";
+import "./FaceRecognition.css";
 
-  let imgAlt = '';
+const FaceRecognition = ({ imageUrl, box, facesCoordinates }) => {
+  let imgAlt = "";
   if (imageUrl.length > 0) {
-    imgAlt = 'your image'
+    imgAlt = "your image";
   }
+
+  const boundingBoxes = facesCoordinates.map((box, id) => {
+    return (
+      <div
+        className="bounding-box"
+        style={{
+          top: box.topRow,
+          bottom: box.bottomRow,
+          left: box.leftCol,
+          right: box.rightCol
+        }}
+      />
+    )
+  })
+
 
   return (
     <div className="center ma">
       <div className="absolute mt2">
-        <img id='inputimg' src={imageUrl} alt={imgAlt} width='500px' height='auto' />
+        <img
+          id="inputImg"
+          src={imageUrl}
+          alt={imgAlt}
+          width="500px"
+          height="auto"
+        />
+        {/* <div
+          className="bounding-box"
+          style={{
+            top: box.topRow,
+            bottom: box.bottomRow,
+            left: box.leftCol,
+            right: box.rightCol
+          }}
+        /> */}
+        {boundingBoxes}
       </div>
     </div>
   );

@@ -19,14 +19,35 @@ class App extends Component {
     this.state = {
       input: "",
       imageUrl: "",
+      facesCoordinates: [],
       box: {}
     };
   }
 
   calculateFaceLocation = data => {
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
-    console.log(data.outputs[0].data.regions[0].region_info.bounding_box);
-    const image = document.getElementById('inputimg');
+
+    //const clarifaiFaces = data.outputs[0].data.regions;
+    //console.log("clarifaiFaces: ", clarifaiFaces);
+
+    const clarifaiFaces = data.outputs[0].data.regions.map(face => { 
+      const faceBoxCoordinates = face.region_info.bounding_box;
+      const image = document.getElementById('inputImg');
+      const width = Number(image.width);
+      const height = Number(image.height);
+      console.log(width, height);
+      return {
+        leftCol: faceBoxCoordinates.left_col * width,
+        topRow: faceBoxCoordinates.top_row * height,
+        rightCol: width - faceBoxCoordinates.right_col * width,
+        bottomRow: height - faceBoxCoordinates.bottom_row * height
+      };
+    })
+
+    this.setState({ facesCoordinates: clarifaiFaces });
+
+    //console.log(data.outputs[0].data.regions[0].region_info.bounding_box);
+    const image = document.getElementById('inputImg');
     const width = Number(image.width);
     const height = Number(image.height);
     console.log(width, height);
@@ -54,7 +75,8 @@ class App extends Component {
     this.setState({ imageUrl: this.state.input });
     app.models
       .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
-      .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
+      .then(response => {this.displayFaceBox(this.calculateFaceLocation(response))
+      console.log('response: ', response)})
       .catch(error => console.log(error));
   };
 
@@ -69,7 +91,11 @@ class App extends Component {
           onInputChange={this.onInputChange}
           onButtonSubmit={this.onSubmit}
         />
-        <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} />
+        <FaceRecognition
+          facesCoordinates={this.state.facesCoordinates}
+          box={this.state.box}
+          imageUrl={this.state.imageUrl}
+        />
       </div>
     );
   }
