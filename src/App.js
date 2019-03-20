@@ -22,7 +22,8 @@ class App extends Component {
       input: "",
       imageUrl: "",
       boxes: [],
-      route: "signIn"
+      route: "signIn",
+      isSingedIn: false
     };
   }
 
@@ -59,9 +60,14 @@ class App extends Component {
   };
 
   onRouteChange = route => {
-    this.setState({
-      route: route
-    });
+    if(this.state.route === 'signOut'){
+      this.setState({
+        isSingedIn: false
+      })
+    } else if (this.state.route === 'home'){
+      this.setState({isSingedIn: true})
+    }
+    this.setState({route: route})
   };
 
   render() {
@@ -84,12 +90,18 @@ class App extends Component {
           </div>
         ) : this.state.route === "register" ? (
           <div>
-            <Navigation onRouteChange={this.onRouteChange} />
+            <Navigation
+              onRouteChange={this.onRouteChange}
+              isSingedIn={this.state.isSingedIn}
+            />
             <Register onRouteChange={this.onRouteChange} />
           </div>
         ) : (
           <div>
-            <Navigation onRouteChange={this.onRouteChange} />
+            <Navigation
+              onRouteChange={this.onRouteChange}
+              isSingedIn={this.state.isSingedIn}
+            />
             <SignIn onRouteChange={this.onRouteChange} />
           </div>
         )}
