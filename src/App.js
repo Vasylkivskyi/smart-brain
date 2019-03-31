@@ -27,6 +27,8 @@ class App extends Component {
     };
   }
 
+ 
+
   calculateFaceLocation = data => {
     const clarifaiFaces = data.outputs[0].data.regions.map(face => {
       const faceBoxCoordinates = face.region_info.bounding_box;
