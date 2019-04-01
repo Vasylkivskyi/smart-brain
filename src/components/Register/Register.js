@@ -16,15 +16,15 @@ class Register extends Component {
   }
 
   onEmailChange = (event) => {
-    this.setState({ email: event.target.value })
+    this.setState({email: event.target.value })
   }
 
   onPasswordChange = (event) => {
-    this.setState({ password: event.target.value })
+    this.setState({password: event.target.value })
   }
 
   onSubmitSignIn = () => {
-    fetch('http://localhost:3000/signin', {
+    fetch('http://localhost:3000/register', {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
       body: JSON.stringify({
@@ -34,7 +34,8 @@ class Register extends Component {
       })
     }).then(response => response.json())
       .then(user => {
-        if (user === 'success') {
+        if (user.id) {
+          this.props.loadUser(user)
           this.props.onRouteChange('home');
         }
       })
