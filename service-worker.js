@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "%20//smart-brain.github.io/Vasylkivskyi/precache-manifest.2323560c819a12d6fc729a6d8316d792.js"
+  "/Vasylkivskyi/precache-manifest.2ec99e5e094ec22af32806e639ad995d.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("%20//smart-brain.github.io/Vasylkivskyi/index.html", {
+workbox.routing.registerNavigationRoute("/Vasylkivskyi/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
