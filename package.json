@@ -1,7 +1,9 @@
 {
   "name": "facerecognition",
   "version": "0.1.0",
-  "node": "10.15.3",
+  "engines": {
+    "node": "10.15.3"
+  },
   "private": true,
   "dependencies": {
     "clarifai": "^2.9.0",
